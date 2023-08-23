@@ -1,0 +1,11 @@
+{
+  "name": "com.KAKuBCE.UsefulUnityTools",
+  "version": "1.0.0",
+  "displayName": "Useful Unity Tools",
+  "description": "This is a set of useful tools",
+  "unity": "2019.1",
+  "dependencies": { },
+  "author": {
+    "name": "LarkinDmitry"
+  }
+}
