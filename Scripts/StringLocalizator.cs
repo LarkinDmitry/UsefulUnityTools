@@ -47,7 +47,8 @@ namespace KAKuBCE.UsefulUnityTools
         {
 #if UNITY_EDITOR
             string dataPath = Path.Combine("Assets", "Resources", "translateData.json");
-            string data = JsonConvert.SerializeObject(new(), Formatting.Indented);
+            translateData = new();
+            string data = JsonConvert.SerializeObject(translateData, Formatting.Indented);
             File.WriteAllText(dataPath, data);
 #endif
         }
