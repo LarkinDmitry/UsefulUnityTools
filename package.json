@@ -4,8 +4,5 @@
   "displayName": "Useful Unity Tools",
   "description": "This is a set of useful tools",
   "unity": "2019.1",
-  "dependencies": { },
-  "author": {
-    "name": "LarkinDmitry"
-  }
+  "dependencies": { }
 }
