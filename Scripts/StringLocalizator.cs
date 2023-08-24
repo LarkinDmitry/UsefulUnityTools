@@ -8,7 +8,7 @@ namespace KAKuBCE.UsefulUnityTools
 {
     public static class StringLocalizator
     {
-        private static Dictionary<string, Translate> translateData;
+        private static Dictionary<string, Translate> translateData = new();
 
         public static string TranslateTo(this string str, Language language)
         {
