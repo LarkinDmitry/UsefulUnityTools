@@ -8,7 +8,7 @@ namespace KAKuBCE.UsefulUnityTools
 {
     public static class StringLocalizator
     {
-        private static Dictionary<string, Translate> translateData = new();
+        private static Dictionary<string, Translate> translateData;
 
         public static string TranslateTo(this string str, Language language)
         {
@@ -47,7 +47,7 @@ namespace KAKuBCE.UsefulUnityTools
         {
 #if UNITY_EDITOR
             string dataPath = Path.Combine("Assets", "Resources", "translateData.json");
-            string data = JsonConvert.SerializeObject(translateData, Formatting.Indented);
+            string data = JsonConvert.SerializeObject(new(), Formatting.Indented);
             File.WriteAllText(dataPath, data);
 #endif
         }
