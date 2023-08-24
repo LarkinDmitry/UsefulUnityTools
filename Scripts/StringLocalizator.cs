@@ -59,7 +59,7 @@ namespace KAKuBCE.UsefulUnityTools
 
             foreach (var v in translateData)
             {
-                if (v.Value.NotFull)
+                if (v.Value.IsNotFullTranslate())
                 {
                     if (string.IsNullOrEmpty(result))
                     {
@@ -92,9 +92,12 @@ namespace KAKuBCE.UsefulUnityTools
             en = string.Empty,
             ru = string.Empty,
             fr = string.Empty
-        };
+        };        
 
-        public bool NotFull => string.IsNullOrEmpty(en) || string.IsNullOrEmpty(ru) || string.IsNullOrEmpty(fr);
+        public bool IsNotFullTranslate()
+        {
+            return string.IsNullOrEmpty(en) || string.IsNullOrEmpty(ru) || string.IsNullOrEmpty(fr);
+        }
 
         public string GetTranslate(Language language)
         {
