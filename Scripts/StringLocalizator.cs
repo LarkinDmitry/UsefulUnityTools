@@ -14,7 +14,6 @@ namespace KAKuBCE.UsefulUnityTools
         {
             if (translateData == null)
             {
-                translateData = new();
                 Initialization();
             }
 
@@ -38,6 +37,7 @@ namespace KAKuBCE.UsefulUnityTools
             }
             catch
             {
+                translateData = new();
                 UpdateTranslateData();
             }
 
@@ -47,8 +47,8 @@ namespace KAKuBCE.UsefulUnityTools
         private static void UpdateTranslateData()
         {
 #if UNITY_EDITOR
-            string dataPath = Path.Combine("Assets", "Resources", "translateData.json");            
             string data = JsonConvert.SerializeObject(translateData, Formatting.Indented);
+            string dataPath = Path.Combine("Assets", "Resources", "translateData.json");            
             File.WriteAllText(dataPath, data);
 #endif
         }
