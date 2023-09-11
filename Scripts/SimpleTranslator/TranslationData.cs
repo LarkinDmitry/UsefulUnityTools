@@ -25,13 +25,14 @@ namespace KAKuBCE.UsefulUnityTools
             eng = str;
         }
 
-        public bool IsNotFullTranslate()
+        public bool NotTranslatedTo(Language[] languagesCheckList)
         {
-            return string.IsNullOrEmpty(eng)
-                || string.IsNullOrEmpty(fra)
-                || string.IsNullOrEmpty(por)
-                || string.IsNullOrEmpty(rus)
-                || string.IsNullOrEmpty(spa);
+            foreach (var language in languagesCheckList)
+            {
+                if (string.IsNullOrEmpty(GetValue(language))) return true;
+            }
+
+            return false;
         }
 
         public string GetValue(Language language)

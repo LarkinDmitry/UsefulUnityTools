@@ -1,8 +1,8 @@
 {
   "name": "com.kakubce.usefulunitytools",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "displayName": "Useful Unity Tools",
   "description": "This is a set of useful tools",
-  "unity": "2019.1",
+  "unity": "2021.1",
   "dependencies": { }
 }

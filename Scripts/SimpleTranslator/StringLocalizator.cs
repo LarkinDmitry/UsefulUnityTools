@@ -11,32 +11,48 @@ namespace KAKuBCE.UsefulUnityTools
     {
         public static event Action LanguageIsChanged;
 
-        private static Language developmentLanguage;
+        private static Language? developmentLanguage;
         private static Language? selectedLanguage;
-
         private static List<TranslationData> translationLib;
 
-        public static void Initialization(Language developmentLanguage, bool isNeedLibraryCheck = true)
+        /// <summary>
+        /// Select development language (default value - Eng), if you need to check the completeness of the translation,
+        /// specify the list of languages requiring verification (default value - no validation)
+        /// </summary>
+        /// <param name="developmentLanguage"></param>
+        /// <param name="languagesCheckList"></param>
+        public static void Initialization(Language developmentLanguage = Language.Eng, Language[] languagesCheckList = null)
         {
-            StringLocalizator.developmentLanguage = developmentLanguage;
+            if (StringLocalizator.developmentLanguage == null)
+            {
+                StringLocalizator.developmentLanguage = developmentLanguage;
 
-            try
-            {
-                string jsonData = Resources.Load("translationLibrary").ToString();
-                translationLib = JsonConvert.DeserializeObject<List<TranslationData>>(jsonData);
-            }
-            catch
-            {
-                translationLib = new();
-                UpdateTranslateLib();
-            }
+                try
+                {
+                    string jsonData = Resources.Load("translationLibrary").ToString();
+                    translationLib = JsonConvert.DeserializeObject<List<TranslationData>>(jsonData);
+                }
+                catch
+                {
+                    translationLib = new();
+                    UpdateTranslateLib();
+                }
 
-            if (isNeedLibraryCheck)
+                if (languagesCheckList != null)
+                {
+                    CheckTranslateData(languagesCheckList);
+                }
+            }
+            else
             {
-                CheckTranslateData();
+                Debug.LogError("<color=red>The system has already been initiated!</color>");
             }
         }
 
+        /// <summary>
+        /// Set the translation language for the ".Translate()" function and for the "AutoTranslation" script
+        /// </summary>
+        /// <param name="language"></param>
         public static void SetTranslateLanguage(Language language)
         {
             selectedLanguage = language;
@@ -51,7 +67,7 @@ namespace KAKuBCE.UsefulUnityTools
             }
             else
             {
-                Debug.LogWarning($"Translate language not set!");
+                Debug.LogWarning("<color=red>Translate language not set!</color>");
                 return str;
             }            
         }
@@ -65,13 +81,14 @@ namespace KAKuBCE.UsefulUnityTools
 
             if (translationLib == null)
             {
-                Debug.LogWarning($"Translation library missing!");
+                string message = developmentLanguage == null ? "StringLocalizator is not initialized" : "Translation library missing!";
+                Debug.LogWarning($"<color=red>{message}</color>");
                 return str;
             }
 
             foreach(var data in translationLib)
             {
-                if(Equals(str, data.GetValue(developmentLanguage)))
+                if(Equals(str, data.GetValue(developmentLanguage.Value)))
                 {
                     string result = data.GetValue(language);
 
@@ -88,7 +105,7 @@ namespace KAKuBCE.UsefulUnityTools
             }
 
             Debug.LogWarning($"Translation library does not contain a translation for \"{str}\"");
-            translationLib.Add(new TranslationData(str, developmentLanguage));
+            translationLib.Add(new TranslationData(str, developmentLanguage.Value));
             UpdateTranslateLib();
             return str;
         }
@@ -102,14 +119,21 @@ namespace KAKuBCE.UsefulUnityTools
 #endif
         }
 
-        private static void CheckTranslateData()
+        private static void CheckTranslateData(Language[] languagesCheckList)
         {
 #if UNITY_EDITOR
-            var needTranslateElements = translationLib.Where(e => e.IsNotFullTranslate());
+            var needTranslateElements = translationLib.Where(e => e.NotTranslatedTo(languagesCheckList));
 
             if (needTranslateElements.Count() != 0)
             {
-                Debug.LogWarning($"{needTranslateElements.Count()} element(s) does not have a full translation");
+                string s = $"{needTranslateElements.Count()} item(s) does not have a translation in the selected languages:";
+
+                foreach(var language in languagesCheckList)
+                {
+                    s += $" {language};";
+                }
+
+                Debug.LogWarning(s);
             }
 #endif
         }
