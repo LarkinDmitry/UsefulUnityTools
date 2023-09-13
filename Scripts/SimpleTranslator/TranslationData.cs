@@ -22,8 +22,6 @@ namespace KAKuBCE.UsefulUnityTools
                 case Language.Rus: rus = str; break;
                 case Language.Spa: spa = str; break;
             }
-
-            eng = str;
         }
 
         public bool NotTranslatedTo(Language[] languagesCheckList)
