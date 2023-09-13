@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace KAKuBCE.UsefulUnityTools
@@ -112,8 +113,14 @@ namespace KAKuBCE.UsefulUnityTools
         private static void UpdateTranslateLib()
         {
 #if UNITY_EDITOR
+            string path = Path.Combine("Assets", "Resources");
+            if (!Directory.Exists(path))
+            {
+                AssetDatabase.CreateFolder("Assets", "Resources");
+            }
+
             string data = JsonUtility.ToJson(new JsonListWrapper<TranslationData>(translationLib), true);
-            string dataPath = Path.Combine("Assets", "Resources", "translationLibrary.json");            
+            string dataPath = Path.Combine(path, "translationLibrary.json");
             File.WriteAllText(dataPath, data);
 #endif
         }
