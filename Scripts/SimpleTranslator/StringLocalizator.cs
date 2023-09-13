@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace KAKuBCE.UsefulUnityTools
                 try
                 {
                     string jsonData = Resources.Load("translationLibrary").ToString();
-                    translationLib = JsonConvert.DeserializeObject<List<TranslationData>>(jsonData);
+                    translationLib = JsonUtility.FromJson<JsonListWrapper<TranslationData>>(jsonData).list;
                 }
                 catch
                 {
@@ -113,7 +112,7 @@ namespace KAKuBCE.UsefulUnityTools
         private static void UpdateTranslateLib()
         {
 #if UNITY_EDITOR
-            string data = JsonConvert.SerializeObject(translationLib, Formatting.Indented);
+            string data = JsonUtility.ToJson(new JsonListWrapper<TranslationData>(translationLib), true);
             string dataPath = Path.Combine("Assets", "Resources", "translationLibrary.json");            
             File.WriteAllText(dataPath, data);
 #endif

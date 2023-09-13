@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace KAKuBCE.UsefulUnityTools
 {
@@ -47,6 +48,13 @@ namespace KAKuBCE.UsefulUnityTools
                 _ => string.Empty,
             };
         }
+    }
+
+    [Serializable]
+    public class JsonListWrapper<T>
+    {
+        public List<T> list;
+        public JsonListWrapper(List<T> list) => this.list = list;
     }
 
     public enum Language { Eng, Fra, Por, Rus, Spa }
