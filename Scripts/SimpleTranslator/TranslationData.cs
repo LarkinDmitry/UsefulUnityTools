@@ -11,6 +11,7 @@ namespace KAKuBCE.UsefulUnityTools
         public string por;
         public string rus;
         public string spa;
+        public string tur;
 
         public TranslationData(string str, Language language)
         {
@@ -21,6 +22,7 @@ namespace KAKuBCE.UsefulUnityTools
                 case Language.Por: por = str; break;
                 case Language.Rus: rus = str; break;
                 case Language.Spa: spa = str; break;
+                case Language.Tur: tur = str; break;
             }
         }
 
@@ -43,6 +45,7 @@ namespace KAKuBCE.UsefulUnityTools
                 Language.Por => por,
                 Language.Rus => rus,
                 Language.Spa => spa,
+                Language.Tur => tur,
                 _ => string.Empty,
             };
         }
@@ -55,5 +58,5 @@ namespace KAKuBCE.UsefulUnityTools
         public JsonListWrapper(List<T> list) => this.list = list;
     }
 
-    public enum Language { Eng, Fra, Por, Rus, Spa }
+    public enum Language { Eng, Fra, Por, Rus, Spa, Tur }
 }
