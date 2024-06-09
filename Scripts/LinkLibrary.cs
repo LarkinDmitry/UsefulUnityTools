@@ -34,6 +34,6 @@ namespace KAKuBCE.UsefulUnityTools
             }            
         }
         
-        public static bool IsThereType(Type type) => library.ContainsKey(type);
+        public static bool ContainsType(Type type) => library.ContainsKey(type);
     }
 }
