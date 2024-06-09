@@ -12,7 +12,8 @@ namespace KAKuBCE.UsefulUnityTools
         {
             if (!library.TryAdd(obj.GetType(), obj))
             {
-                Debug.LogError($"the library already contains a reference to an object of type \"{obj.GetType()}\"");
+                throw new Exception($"the library already contains a reference to an object of type \"{obj.GetType()}\"");
+                //Debug.LogError($"the library already contains a reference to an object of type \"{obj.GetType()}\"");
             }
         }
 
@@ -29,7 +30,8 @@ namespace KAKuBCE.UsefulUnityTools
             }
             else
             {
-                Debug.LogError($"reference to object of type \"{typeof(T)}\" not found");
+                throw new Exception($"reference to object of type \"{typeof(T)}\" not found");
+                //Debug.LogError($"reference to object of type \"{typeof(T)}\" not found");
                 return default;
             }            
         }
