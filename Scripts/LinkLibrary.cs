@@ -33,5 +33,7 @@ namespace KAKuBCE.UsefulUnityTools
                 return default;
             }            
         }
+        
+        public static bool IsThereType(Type type) => library.ContainsKey(type);
     }
 }
